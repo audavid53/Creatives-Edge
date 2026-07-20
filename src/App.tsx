@@ -16,6 +16,7 @@ import { AdminPanel } from './components/AdminPanel';
 import { ProfileModal } from './components/ProfileModal';
 import { WelcomeLessonModal } from './components/WelcomeLessonModal';
 import { generateLessonPDF } from './lib/pdfHelper';
+import { uploadSubmissionVideo } from './lib/storageHelper';
 import { Sparkles, Loader2, Play, ChevronRight, GraduationCap } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -454,9 +455,12 @@ export default function App() {
     return getLocalDateString() === getLocalDateString(progress.lastCompletedAt);
   };
 
-  const handleSubmitSubmission = async (videoData: string, videoText: string, isSimulated: boolean) => {
+  const handleSubmitSubmission = async (videoBlob: Blob | null, videoText: string, isSimulated: boolean) => {
     if (!user) return;
     try {
+      // Upload the recording to Storage first - Firestore only ever stores the URL.
+      const videoUrl = videoBlob ? await uploadSubmissionVideo(user.uid, activeDay, videoBlob) : '';
+
       const subId = `${user.uid}_day${activeDay}`;
       const subRef = doc(db, 'submissions', subId);
       await setDoc(subRef, {
@@ -467,7 +471,7 @@ export default function App() {
         userName: user.displayName || user.email?.split('@')[0] || 'Creative Practitioner',
         dayNumber: activeDay,
         round: 4,
-        videoData,
+        videoUrl,
         videoText,
         submittedAt: new Date().toISOString(),
         isSimulated

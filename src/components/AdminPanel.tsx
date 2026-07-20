@@ -4,6 +4,7 @@ import { collection, doc, getDocs, setDoc, deleteDoc, updateDoc } from 'firebase
 import { Lesson, CarouselCard, Quiz } from '../types';
 import { getLessonByDay, lessonsList } from '../data/lessons';
 import { Illustration } from './Illustration';
+import { uploadLessonImage } from '../lib/storageHelper';
 import { 
   BookOpen, Users, Play, Trash2, ArrowLeft, Save, 
   Search, Phone, ShieldAlert, CheckCircle, Download, 
@@ -11,8 +12,10 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-const compressImage = (base64Str: string, maxWidth = 400, maxHeight = 400): Promise<string> => {
-  return new Promise((resolve) => {
+// Resizes an uploaded image client-side, then hands back a Blob ready for Storage upload
+// (instead of a base64 string destined for a Firestore document field).
+const compressImageToBlob = (base64Str: string, maxWidth = 400, maxHeight = 400): Promise<Blob> => {
+  return new Promise((resolve, reject) => {
     const img = new Image();
     img.src = base64Str;
     img.onload = () => {
@@ -37,17 +40,18 @@ const compressImage = (base64Str: string, maxWidth = 400, maxHeight = 400): Prom
       canvas.height = height;
       const ctx = canvas.getContext('2d');
       if (!ctx) {
-        resolve(base64Str); // Fallback
+        reject(new Error('Canvas context unavailable'));
         return;
       }
 
       ctx.drawImage(img, 0, 0, width, height);
-      // Convert to compressed png
-      const compressedDataUrl = canvas.toDataURL('image/png');
-      resolve(compressedDataUrl);
+      canvas.toBlob((blob) => {
+        if (blob) resolve(blob);
+        else reject(new Error('Image compression failed'));
+      }, 'image/png');
     };
     img.onerror = () => {
-      resolve(base64Str); // Fallback on error
+      reject(new Error('Failed to load image for compression'));
     };
   });
 };
@@ -78,7 +82,7 @@ interface SubmissionRecord {
   userName: string;
   dayNumber: number;
   round: number;
-  videoData: string; // Base64 Data URL
+  videoUrl: string; // Firebase Storage download URL
   videoText: string;
   submittedAt: string;
   isSimulated?: boolean;
@@ -229,15 +233,19 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     }
   };
 
-  // Download Submission Video
-  const handleDownloadVideo = (sub: SubmissionRecord) => {
+  // Download Submission Video (fetched as a blob so cross-origin Storage URLs still force a download)
+  const handleDownloadVideo = async (sub: SubmissionRecord) => {
     try {
+      const response = await fetch(sub.videoUrl);
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
       const link = document.createElement('a');
-      link.href = sub.videoData;
+      link.href = blobUrl;
       link.download = `practice_day${sub.dayNumber}_round${sub.round}_${sub.userName.replace(/\s+/g, '_')}.webm`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      URL.revokeObjectURL(blobUrl);
     } catch (error) {
       console.error("Failed to trigger video download:", error);
       alert("Download failed. The clip data is not ready.");
@@ -521,15 +529,21 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                                         if (file) {
                                           const reader = new FileReader();
                                           reader.onloadend = async () => {
-                                            const originalBase64 = reader.result as string;
-                                            const compressedBase64 = await compressImage(originalBase64, 400, 400);
-                                            const updated = (editingLesson.carouselCards || []).map(c => {
-                                              if (c.id === card.id) {
-                                                return { ...c, customImageUrl: compressedBase64 };
-                                              }
-                                              return c;
-                                            });
-                                            setEditingLesson({ ...editingLesson, carouselCards: updated });
+                                            try {
+                                              const originalBase64 = reader.result as string;
+                                              const compressedBlob = await compressImageToBlob(originalBase64, 400, 400);
+                                              const imageUrl = await uploadLessonImage(selectedDay, card.id, compressedBlob);
+                                              const updated = (editingLesson.carouselCards || []).map(c => {
+                                                if (c.id === card.id) {
+                                                  return { ...c, customImageUrl: imageUrl };
+                                                }
+                                                return c;
+                                              });
+                                              setEditingLesson({ ...editingLesson, carouselCards: updated });
+                                            } catch (err) {
+                                              console.error("Failed to upload slide image:", err);
+                                              alert("Failed to upload image.");
+                                            }
                                           };
                                           reader.readAsDataURL(file);
                                         }
@@ -956,9 +970,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     {/* Inline Player or Trigger */}
                     {activeVideoUrl === sub.id ? (
                       <div className="bg-black rounded-2xl overflow-hidden aspect-video relative flex flex-col items-center justify-center border border-stone-800" id={`player-wrapper-${sub.id}`}>
-                        <video 
-                          src={sub.videoData} 
-                          controls 
+                        <video
+                          src={sub.videoUrl}
+                          controls
                           autoPlay 
                           className="w-full h-full object-contain"
                         />

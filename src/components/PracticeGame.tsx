@@ -8,7 +8,7 @@ interface PracticeGameProps {
   dayNumber: number;
   onFinishGame: (recordingsCount: number) => void;
   onBackToCelebration: () => void;
-  onSubmitSubmission: (videoData: string, videoText: string, isSimulated: boolean) => Promise<void>;
+  onSubmitSubmission: (videoBlob: Blob | null, videoText: string, isSimulated: boolean) => Promise<void>;
 }
 
 interface RecordingClip {
@@ -219,16 +219,16 @@ export const PracticeGame: React.FC<PracticeGameProps> = ({
     stopCamera();
   };
 
-  // Generates a lightweight, valid WebM video file dynamically using Canvas and Oscillator node 
+  // Generates a lightweight, valid WebM video file dynamically using Canvas and Oscillator node
   // so the admin can always play and download a real clip, even under sandbox restrictions.
-  const generateSimulatedVideo = async (textToDraw: string): Promise<string> => {
+  const generateSimulatedVideo = async (textToDraw: string): Promise<Blob | null> => {
     return new Promise((resolve) => {
       try {
         const canvas = document.createElement('canvas');
         canvas.width = 320;
         canvas.height = 240;
         const ctx = canvas.getContext('2d');
-        if (!ctx) return resolve("");
+        if (!ctx) return resolve(null);
 
         // Capture a 10 FPS stream
         const stream = canvas.captureStream(10);
@@ -254,11 +254,7 @@ export const PracticeGame: React.FC<PracticeGameProps> = ({
           osc.stop();
           audioCtx.close();
           const blob = new Blob(chunks, { type: 'video/webm' });
-          const reader = new FileReader();
-          reader.readAsDataURL(blob);
-          reader.onloadend = () => {
-            resolve(reader.result as string);
-          };
+          resolve(blob);
         };
 
         recorder.start();
@@ -301,7 +297,7 @@ export const PracticeGame: React.FC<PracticeGameProps> = ({
         }, 100);
       } catch (e) {
         console.error("Error creating dynamic simulation video:", e);
-        resolve("");
+        resolve(null);
       }
     });
   };
@@ -309,28 +305,23 @@ export const PracticeGame: React.FC<PracticeGameProps> = ({
   const handleFinish = async () => {
     setIsSubmitting(true);
     try {
-      let finalVideoData = "";
-      
+      let finalVideoBlob: Blob | null = null;
+
       // Get active recorded clip (Round 4 is ideal or the last available)
       const r4Clip = recordings.find(r => r.round === 4) || recordings[recordings.length - 1];
-      
+
       if (r4Clip && r4Clip.url) {
-        // Real recording - convert blob to base64
+        // Real recording - fetch the blob back from its object URL
         const res = await fetch(r4Clip.url);
-        const blob = await res.blob();
-        finalVideoData = await new Promise<string>((resolve) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(blob);
-          reader.onloadend = () => resolve(reader.result as string);
-        });
+        finalVideoBlob = await res.blob();
       } else {
         // Simulation mode - generate a fully playable WebM file
         const answerText = currentQna?.answer || "Simulated spontaneity practice pitch";
-        finalVideoData = await generateSimulatedVideo(answerText);
+        finalVideoBlob = await generateSimulatedVideo(answerText);
       }
 
-      // Submit to Firestore submissions collection
-      await onSubmitSubmission(finalVideoData, currentQna?.answer || "", recordings.length === 0);
+      // Submit for upload to Storage + Firestore submissions collection
+      await onSubmitSubmission(finalVideoBlob, currentQna?.answer || "", recordings.length === 0);
       
       onFinishGame(recordings.length);
     } catch (error) {
