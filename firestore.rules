@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Check if the user is the designated administrator
+    function isAdmin() {
+      return request.auth != null && (
+        request.auth.token.email == "AUdavid53@gmail.com" ||
+        request.auth.token.email == "audavid53@gmail.com" ||
+        request.auth.uid == "admin-uid-override"
+      );
+    }
+
+    // Lessons can be read by anyone, written only by Admin
+    match /lessons/{lessonId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Submissions: users can create/read their own, Admin can read/delete
+    match /submissions/{submissionId} {
+      allow create: if request.auth != null;
+      allow read: if request.auth != null && (resource == null || resource.data.userId == request.auth.uid || isAdmin());
+      allow delete: if isAdmin() || (request.auth != null && resource.data.userId == request.auth.uid);
+    }
+
+    // Users profiles and nested progress/records
+    match /users/{userId}/{document=**} {
+      allow read, write: if request.auth != null && (request.auth.uid == userId || isAdmin());
+    }
+  }
+}
