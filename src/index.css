@@ -1,8 +1,56 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Lato:wght@300;400;700;900&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Playfair Display", Georgia, serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  /* Solaa brand typography: Montserrat for headings/labels, Lato for body */
+  --font-serif: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Lato", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+
+  /* Solaa brand palette */
+  --color-brand: #2563EB;          /* primary blue */
+  --color-brand-dark: #1D4ED8;     /* hover / pressed blue */
+  --color-brand-navy: #0B1F3A;     /* deep navy headings / dark surfaces */
+  --color-brand-sky: #DCE9FB;      /* light-blue page background */
+  --color-brand-tint: #EFF5FE;     /* subtle blue surface */
+  --color-brand-border: #D6E4FA;   /* soft blue border */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #DCE9FB;
+  color: #0B1F3A;
+  font-family: "Lato", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Montserrat carries the display weight the old serif used to */
+.font-serif {
+  letter-spacing: -0.01em;
+}
+
+/* Tags/labels that used the mono utility read best a touch wider */
+.font-mono {
+  letter-spacing: 0.04em;
+}
+
+/* Subtle branded scrollbar for the desktop experience */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #93B4F5 transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #B8CEF7;
+  border-radius: 9999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #93B4F5;
 }

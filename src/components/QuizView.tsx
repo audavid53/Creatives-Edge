@@ -50,14 +50,14 @@ export const QuizView: React.FC<QuizViewProps> = ({
       <div>
         {/* Header */}
         <div className="text-center mb-6" id="quiz-header">
-          <span className="text-xs font-mono font-bold text-[#C85A32] uppercase">Day {dayNumber} • Active Recall</span>
-          <h2 className="text-xl font-serif font-bold text-stone-900 mt-1">Reflect & Retain</h2>
-          <p className="text-xs text-stone-500 mt-1">Recall reinforces memory. Select the core truth below.</p>
+          <span className="text-xs font-mono font-bold text-[#2563EB] uppercase">Day {dayNumber} • Active Recall</span>
+          <h2 className="text-xl font-serif font-bold text-slate-900 mt-1">Reflect & Retain</h2>
+          <p className="text-xs text-slate-500 mt-1">Recall reinforces memory. Select the core truth below.</p>
         </div>
 
         {/* Question Container */}
-        <div className="bg-white border border-stone-200 rounded-3xl p-6 shadow-xs mb-6" id="quiz-question-card">
-          <h3 className="text-base md:text-lg font-serif font-bold text-stone-800 leading-snug mb-5">
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs mb-6" id="quiz-question-card">
+          <h3 className="text-base md:text-lg font-serif font-bold text-slate-800 leading-snug mb-5">
             {quiz.question}
           </h3>
 
@@ -68,7 +68,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
               const isCorrect = idx === quiz.correctIndex;
               const isWrongSelection = isSelected && !isCorrect;
 
-              let btnStyle = "border-stone-200 hover:border-stone-300 bg-white text-stone-700";
+              let btnStyle = "border-slate-200 hover:border-slate-300 bg-white text-slate-700";
               if (isSelected) {
                 if (isCorrect) {
                   btnStyle = "border-emerald-500 bg-emerald-50 text-emerald-900";
@@ -118,7 +118,7 @@ export const QuizView: React.FC<QuizViewProps> = ({
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-[#FAF6F0] border-2 border-amber-300/60 rounded-3xl p-6 shadow-sm relative overflow-hidden"
+            className="bg-[#EFF5FE] border-2 border-amber-300/60 rounded-3xl p-6 shadow-sm relative overflow-hidden"
             id="key-insight-card"
           >
             {/* Soft decorative background illustration */}
@@ -133,18 +133,18 @@ export const QuizView: React.FC<QuizViewProps> = ({
               <span className="text-xs font-mono font-bold text-amber-800 uppercase tracking-widest">Key Insight</span>
             </div>
 
-            <h4 className="text-lg font-serif italic text-stone-800 leading-relaxed font-medium">
+            <h4 className="text-lg font-serif italic text-slate-800 leading-relaxed font-medium">
               "{quiz.keyInsightText}"
             </h4>
 
-            <div className="mt-4 flex items-center justify-between border-t border-[#EBE3D5] pt-3 text-[10px] font-mono text-stone-400">
+            <div className="mt-4 flex items-center justify-between border-t border-[#D6E4FA] pt-3 text-[10px] font-mono text-slate-400">
               <span>Day {dayNumber} Devotional Takeaway</span>
               <button 
                 onClick={() => {
                   navigator.clipboard.writeText(quiz.keyInsightText);
                   alert("Insight copied to clipboard!");
                 }}
-                className="hover:text-stone-700 flex items-center gap-1 cursor-pointer"
+                className="hover:text-slate-700 flex items-center gap-1 cursor-pointer"
                 title="Copy Insight"
               >
                 <Share2 size={11} /> Copy
@@ -161,8 +161,8 @@ export const QuizView: React.FC<QuizViewProps> = ({
           disabled={!hasAnsweredCorrectly}
           className={`w-full font-sans font-medium py-3.5 px-6 rounded-2xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm ${
             hasAnsweredCorrectly 
-              ? 'bg-[#1C1917] hover:bg-[#C85A32] text-white active:scale-98' 
-              : 'bg-stone-100 text-stone-400 cursor-not-allowed border border-stone-200'
+              ? 'bg-[#0B1F3A] hover:bg-[#2563EB] text-white active:scale-98' 
+              : 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200'
           }`}
           id="quiz-continue-button"
         >

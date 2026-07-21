@@ -128,16 +128,16 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-[#1C1917]/85 backdrop-blur-md flex items-center justify-center p-4 z-50 overflow-y-auto">
+    <div className="fixed inset-0 bg-[#0B1F3A]/85 backdrop-blur-md flex items-center justify-center p-4 z-50 overflow-y-auto">
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="bg-[#FAF6F0] w-full max-w-md rounded-3xl p-6 border border-[#EBE3D5] shadow-2xl relative"
+        className="bg-[#EFF5FE] w-full max-w-md rounded-3xl p-6 border border-[#D6E4FA] shadow-2xl relative"
       >
         <div className="text-center mb-6">
-          <span className="text-[10px] font-mono tracking-widest text-[#C85A32] uppercase font-bold">REGISTRATION REQUIRED</span>
-          <h2 className="text-2xl font-serif font-bold text-stone-900 mt-1">Complete Your Profile</h2>
-          <p className="text-xs text-stone-500 mt-2 max-w-xs mx-auto">
+          <span className="text-[10px] font-mono tracking-widest text-[#2563EB] uppercase font-bold">REGISTRATION REQUIRED</span>
+          <h2 className="text-2xl font-serif font-bold text-slate-900 mt-1">Complete Your Profile</h2>
+          <p className="text-xs text-slate-500 mt-2 max-w-xs mx-auto">
             Welcome to the Creative Edge. Please finalize your details before initiating your customized curriculum.
           </p>
         </div>
@@ -151,17 +151,17 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Profile Picture Upload (Optional) */}
           <div className="flex flex-col items-center gap-3">
-            <label className="text-[10px] font-mono font-bold text-stone-400 uppercase tracking-wider">
+            <label className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">
               Profile Picture (Optional)
             </label>
             <div className="relative group">
               {profilePic ? (
-                <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#C85A32] bg-stone-50 relative flex items-center justify-center p-1">
+                <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#2563EB] bg-slate-50 relative flex items-center justify-center p-1">
                   <img src={profilePic} alt="Profile Preview" className="max-w-full max-h-full object-contain rounded-full" />
                   <button
                     type="button"
                     onClick={() => setProfilePic('')}
-                    className="absolute inset-0 bg-stone-900/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-white text-[10px] font-mono font-bold"
+                    className="absolute inset-0 bg-slate-900/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-white text-[10px] font-mono font-bold"
                   >
                     REMOVE
                   </button>
@@ -173,13 +173,13 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                   onDrop={handleDrop}
                   className={`w-24 h-24 rounded-full border-2 border-dashed flex flex-col items-center justify-center cursor-pointer transition-all ${
                     dragOver
-                      ? 'border-[#C85A32] bg-[#C85A32]/5 scale-102'
-                      : 'border-stone-300 hover:border-[#C85A32]/50 hover:bg-stone-100/50'
+                      ? 'border-[#2563EB] bg-[#2563EB]/5 scale-102'
+                      : 'border-slate-300 hover:border-[#2563EB]/50 hover:bg-slate-100/50'
                   }`}
                   onClick={() => document.getElementById('profile-file-input')?.click()}
                 >
-                  <Camera size={20} className="text-stone-400 group-hover:text-[#C85A32] transition-colors" />
-                  <span className="text-[9px] font-mono font-bold text-stone-400 mt-1 uppercase">UPLOAD</span>
+                  <Camera size={20} className="text-slate-400 group-hover:text-[#2563EB] transition-colors" />
+                  <span className="text-[9px] font-mono font-bold text-slate-400 mt-1 uppercase">UPLOAD</span>
                 </div>
               )}
             </div>
@@ -194,7 +194,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
 
             {/* Custom Drag & Drop Prompt under picture if empty */}
             {!profilePic && (
-              <p className="text-[10px] font-mono text-stone-400">
+              <p className="text-[10px] font-mono text-slate-400">
                 Drag & drop or click to upload
               </p>
             )}
@@ -202,8 +202,8 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
 
           {/* Full Name Input */}
           <div className="space-y-1.5">
-            <label htmlFor="pname" className="text-[10px] font-mono font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
-              <User size={12} className="text-[#C85A32]" />
+            <label htmlFor="pname" className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+              <User size={12} className="text-[#2563EB]" />
               <span>Full Name</span>
             </label>
             <input
@@ -213,14 +213,14 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Clara Oswald"
-              className="w-full bg-white border border-stone-200 rounded-xl p-3 text-sm focus:border-[#C85A32] focus:ring-1 focus:ring-[#C85A32]/20 focus:outline-hidden text-stone-800"
+              className="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]/20 focus:outline-hidden text-slate-800"
             />
           </div>
 
           {/* Phone Number Input */}
           <div className="space-y-1.5">
-            <label htmlFor="pphone" className="text-[10px] font-mono font-bold text-stone-500 uppercase tracking-wider flex items-center gap-1.5">
-              <Phone size={12} className="text-[#C85A32]" />
+            <label htmlFor="pphone" className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+              <Phone size={12} className="text-[#2563EB]" />
               <span>Phone Number</span>
             </label>
             <input
@@ -230,7 +230,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="e.g. (555) 019-2834"
-              className="w-full bg-white border border-stone-200 rounded-xl p-3 text-sm focus:border-[#C85A32] focus:ring-1 focus:ring-[#C85A32]/20 focus:outline-hidden text-stone-800 font-mono"
+              className="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]/20 focus:outline-hidden text-slate-800 font-mono"
             />
           </div>
 
@@ -238,7 +238,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full mt-6 bg-[#C85A32] hover:bg-[#b04a25] disabled:bg-stone-300 text-white font-sans font-semibold py-3.5 rounded-2xl shadow-md transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer text-sm"
+            className="w-full mt-6 bg-[#2563EB] hover:bg-[#1D4ED8] disabled:bg-slate-300 text-white font-sans font-semibold py-3.5 rounded-2xl shadow-md transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer text-sm"
           >
             {isSubmitting ? (
               <>

@@ -98,21 +98,21 @@ export const ReflectionView: React.FC<ReflectionViewProps> = ({
         <div className="flex items-center justify-between mb-6" id="reflection-top-bar">
           <button
             onClick={handleBack}
-            className="text-xs font-mono font-medium text-stone-500 hover:text-stone-800 flex items-center gap-1 cursor-pointer"
+            className="text-xs font-mono font-medium text-slate-500 hover:text-slate-800 flex items-center gap-1 cursor-pointer"
             id="reflection-back-link"
           >
             <ArrowLeft size={14} /> Back
           </button>
-          <span className="text-xs font-mono font-bold text-[#C85A32] uppercase">
+          <span className="text-xs font-mono font-bold text-[#2563EB] uppercase">
             Reflection {currentIdx + 1} of {questions.length}
           </span>
         </div>
 
         {/* Header summary */}
         <div className="text-center mb-6" id="reflection-intro">
-          <span className="text-xs font-mono font-bold text-stone-400 uppercase tracking-wider">Internal Journal</span>
-          <h2 className="text-xl font-serif font-bold text-stone-900 mt-1">Scribe Your Blueprint</h2>
-          <p className="text-xs text-stone-500 mt-1">Your written reflections will compile directly into today's PDF keepsake.</p>
+          <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">Internal Journal</span>
+          <h2 className="text-xl font-serif font-bold text-slate-900 mt-1">Scribe Your Blueprint</h2>
+          <p className="text-xs text-slate-500 mt-1">Your written reflections will compile directly into today's PDF keepsake.</p>
         </div>
 
         {/* Question Area with AnimatePresence */}
@@ -125,14 +125,14 @@ export const ReflectionView: React.FC<ReflectionViewProps> = ({
               initial="enter"
               animate="center"
               exit="exit"
-              className="bg-white border border-stone-200 rounded-3xl p-6 shadow-xs flex flex-col"
+              className="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs flex flex-col"
               id={`reflection-card-${currentIdx}`}
             >
               <div className="flex items-start gap-3 mb-4">
-                <div className="bg-[#FAF6F0] text-[#C85A32] p-2 rounded-xl mt-0.5 shrink-0">
+                <div className="bg-[#EFF5FE] text-[#2563EB] p-2 rounded-xl mt-0.5 shrink-0">
                   <HelpCircle size={18} />
                 </div>
-                <h3 className="text-base font-serif font-semibold text-stone-800 leading-snug mt-0.5">
+                <h3 className="text-base font-serif font-semibold text-slate-800 leading-snug mt-0.5">
                   {questions[currentIdx]}
                 </h3>
               </div>
@@ -143,12 +143,12 @@ export const ReflectionView: React.FC<ReflectionViewProps> = ({
                 onChange={handleInputChange}
                 placeholder={placeholders[currentIdx] || "Be honest — no one else sees this but you."}
                 rows={5}
-                className="w-full text-stone-800 font-sans text-sm p-4 rounded-2xl border-2 border-stone-200 focus:border-[#C85A32] focus:ring-1 focus:ring-[#C85A32] focus:outline-hidden transition-all placeholder:text-stone-400 bg-stone-50/50 resize-none"
+                className="w-full text-slate-800 font-sans text-sm p-4 rounded-2xl border-2 border-slate-200 focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] focus:outline-hidden transition-all placeholder:text-slate-400 bg-slate-50/50 resize-none"
                 id={`reflection-input-${currentIdx}`}
               />
 
               {/* Auto save message */}
-              <p className="text-[10px] text-stone-400 mt-2 font-mono text-right">
+              <p className="text-[10px] text-slate-400 mt-2 font-mono text-right">
                 ✓ Auto-saving locally
               </p>
             </motion.div>
@@ -162,18 +162,18 @@ export const ReflectionView: React.FC<ReflectionViewProps> = ({
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-4 text-stone-800 text-xs"
+              className="mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-4 text-slate-800 text-xs"
               id="reflection-nudge"
             >
               <div className="flex items-start gap-2.5">
                 <div className="text-amber-600 font-bold mt-0.5">💡 Insight:</div>
                 <div className="flex-1">
                   <p className="font-serif italic font-medium">"This one's worth sitting with — want to come back to it?"</p>
-                  <p className="text-[11px] text-stone-500 mt-1">Writing crystallizes thought. If you are stuck, write a single word or short phrase. Or, skip to proceed anyway.</p>
+                  <p className="text-[11px] text-slate-500 mt-1">Writing crystallizes thought. If you are stuck, write a single word or short phrase. Or, skip to proceed anyway.</p>
                   <div className="mt-3 flex gap-2">
                     <button
                       onClick={() => setShowNudge(false)}
-                      className="bg-white hover:bg-stone-100 text-stone-800 border border-stone-200 font-medium px-3 py-1.5 rounded-lg text-[11px] cursor-pointer"
+                      className="bg-white hover:bg-slate-100 text-slate-800 border border-slate-200 font-medium px-3 py-1.5 rounded-lg text-[11px] cursor-pointer"
                     >
                       Stay & Reflect
                     </button>
@@ -200,10 +200,10 @@ export const ReflectionView: React.FC<ReflectionViewProps> = ({
               key={idx}
               className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${
                 idx === currentIdx 
-                  ? 'bg-[#C85A32]' 
+                  ? 'bg-[#2563EB]' 
                   : idx < currentIdx 
-                    ? 'bg-stone-500' 
-                    : 'bg-stone-200'
+                    ? 'bg-slate-500' 
+                    : 'bg-slate-200'
               }`}
             />
           ))}
@@ -211,7 +211,7 @@ export const ReflectionView: React.FC<ReflectionViewProps> = ({
 
         <button
           onClick={handleNext}
-          className="w-full bg-[#1C1917] hover:bg-[#C85A32] text-white font-sans font-medium py-3.5 px-6 rounded-2xl transition-all shadow-sm active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
+          className="w-full bg-[#0B1F3A] hover:bg-[#2563EB] text-white font-sans font-medium py-3.5 px-6 rounded-2xl transition-all shadow-sm active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
           id="reflection-continue-button"
         >
           <span>

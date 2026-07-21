@@ -28,7 +28,7 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
         {parts.map((part, i) => {
           if (part.startsWith('**') && part.endsWith('**')) {
             return (
-              <strong key={i} className="font-extrabold text-stone-950 underline decoration-[#C85A32]/30">
+              <strong key={i} className="font-extrabold text-slate-950 underline decoration-[#2563EB]/30">
                 {part.slice(2, -2)}
               </strong>
             );
@@ -38,7 +38,7 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
           return subParts.map((subPart, j) => {
             if (subPart.startsWith('*') && subPart.endsWith('*')) {
               return (
-                <em key={`${i}-${j}`} className="italic font-medium text-stone-800 bg-amber-50 px-1 rounded-sm">
+                <em key={`${i}-${j}`} className="italic font-medium text-slate-800 bg-amber-50 px-1 rounded-sm">
                   {subPart.slice(1, -1)}
                 </em>
               );
@@ -153,7 +153,7 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
     if (!card.showPicture) return null;
     if (card.customImageUrl) {
       return (
-        <div className="w-[150px] h-[150px] flex items-center justify-center overflow-hidden rounded-2xl bg-stone-50 shrink-0 shadow-3xs p-2">
+        <div className="w-[150px] h-[150px] flex items-center justify-center overflow-hidden rounded-2xl bg-slate-50 shrink-0 shadow-sm p-2">
           <img
             src={card.customImageUrl}
             alt="Slide visual"
@@ -164,7 +164,7 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
       );
     }
     return (
-      <div className="bg-[#FAF6F0] p-4 rounded-full flex items-center justify-center shrink-0 border border-[#EBE3D5]/40 shadow-3xs">
+      <div className="bg-[#EFF5FE] p-4 rounded-full flex items-center justify-center shrink-0 border border-[#D6E4FA]/40 shadow-sm">
         <Illustration type={card.illustrationType as any} size={110} />
       </div>
     );
@@ -174,11 +174,11 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
   const renderCardContent = (card: typeof currentCard) => {
     const imageElement = renderImage(card);
     const textElement = (
-      <div className="bg-[#FAF6F0] border border-[#EBE3D5] rounded-3xl p-5 md:p-6 shadow-3xs flex-1 text-left relative w-full">
+      <div className="bg-[#EFF5FE] border border-[#D6E4FA] rounded-3xl p-5 md:p-6 shadow-sm flex-1 text-left relative w-full">
         {card.showHeading && card.title && (
           <div className="mb-2.5">
             {card.type === 'title' && (
-              <span className="text-[9px] font-mono tracking-widest text-[#C85A32] uppercase font-bold block mb-1">
+              <span className="text-[9px] font-mono tracking-widest text-[#2563EB] uppercase font-bold block mb-1">
                 Day {lesson.dayNumber} Lesson Introduction
               </span>
             )}
@@ -187,12 +187,12 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
                 <BookOpen size={10} /> Key Inquiry
               </span>
             )}
-            <h2 className="text-xl md:text-2xl font-serif font-bold text-stone-900 tracking-tight leading-snug">
+            <h2 className="text-xl md:text-2xl font-serif font-bold text-slate-900 tracking-tight leading-snug">
               {card.title}
             </h2>
           </div>
         )}
-        <p className="text-stone-700 font-sans text-xs md:text-sm leading-relaxed">
+        <p className="text-slate-700 font-sans text-xs md:text-sm leading-relaxed">
           {renderFormattedText(card.text)}
         </p>
       </div>
@@ -238,17 +238,17 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
   };
 
   return (
-    <div className="flex flex-col min-h-full justify-between pb-8 px-5 py-6 bg-[#FDFBF7]">
+    <div className="flex flex-col min-h-full justify-between pb-8 px-5 py-6 bg-[#FFFFFF]">
       {/* Top Bar Navigation */}
       <div className="flex items-center justify-between mb-6" id="carousel-top-bar">
         <button
           onClick={onBackToHome}
-          className="text-xs font-mono font-bold text-stone-500 hover:text-[#1C1917] flex items-center gap-1 cursor-pointer"
+          className="text-xs font-mono font-bold text-slate-500 hover:text-[#0B1F3A] flex items-center gap-1 cursor-pointer"
           id="back-home-link"
         >
           <ArrowLeft size={14} /> Exit Lesson
         </button>
-        <span className="text-xs font-mono font-bold text-[#C85A32] uppercase">
+        <span className="text-xs font-mono font-bold text-[#2563EB] uppercase">
           Day {lesson.dayNumber} • Page {currentIndex + 1} of {cards.length}
         </span>
       </div>
@@ -263,7 +263,7 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
             initial="enter"
             animate="center"
             exit="exit"
-            className="bg-white border border-stone-200/80 rounded-3xl p-6 shadow-3xs flex flex-col items-center justify-center text-center w-full min-h-[350px]"
+            className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center w-full min-h-[350px]"
             id={`lesson-card-${currentIndex}`}
           >
             {renderCardContent(currentCard)}
@@ -280,10 +280,10 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
               key={idx}
               className={`h-2 rounded-full transition-all duration-300 ${
                 idx === currentIndex 
-                  ? 'w-6 bg-[#C85A32]' 
+                  ? 'w-6 bg-[#2563EB]' 
                   : idx < currentIndex 
-                    ? 'w-2 bg-stone-400' 
-                    : 'w-2 bg-stone-200'
+                    ? 'w-2 bg-slate-400' 
+                    : 'w-2 bg-slate-200'
               }`}
             />
           ))}
@@ -293,7 +293,7 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
         <div className="grid grid-cols-2 gap-4 w-full" id="carousel-action-buttons">
           <button
             onClick={handleBack}
-            className="bg-stone-50 hover:bg-stone-100 text-stone-700 border border-stone-200 font-sans font-bold py-3.5 px-4 rounded-2xl transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 text-xs uppercase tracking-wider"
+            className="bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 font-sans font-bold py-3.5 px-4 rounded-2xl transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 text-xs uppercase tracking-wider"
             id="carousel-prev"
           >
             <ArrowLeft size={14} />
@@ -302,7 +302,7 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
 
           <button
             onClick={handleNext}
-            className="bg-[#1C1917] hover:bg-[#C85A32] text-white font-sans font-bold py-3.5 px-4 rounded-2xl transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 text-xs shadow-sm uppercase tracking-wider"
+            className="bg-[#0B1F3A] hover:bg-[#2563EB] text-white font-sans font-bold py-3.5 px-4 rounded-2xl transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 text-xs shadow-sm uppercase tracking-wider"
             id="carousel-next"
           >
             <span>{currentIndex === cards.length - 1 ? 'Go to Quiz' : 'Next'}</span>

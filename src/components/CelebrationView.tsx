@@ -52,7 +52,7 @@ export const CelebrationView: React.FC<CelebrationViewProps> = ({
   };
 
   return (
-    <div className="flex flex-col min-h-full justify-between pb-8 px-5 py-6 bg-[#FAF6F0]" id="celebration-screen">
+    <div className="flex flex-col min-h-full justify-between pb-8 px-5 py-6 bg-[#EFF5FE]" id="celebration-screen">
       {/* Celebration Header */}
       <div className="text-center mt-6" id="celebration-header">
         <motion.div 
@@ -64,13 +64,13 @@ export const CelebrationView: React.FC<CelebrationViewProps> = ({
           <CheckCircle size={36} className="fill-emerald-10" />
         </motion.div>
 
-        <span className="text-xs font-mono font-bold text-[#C85A32] uppercase tracking-widest block mb-1">
+        <span className="text-xs font-mono font-bold text-[#2563EB] uppercase tracking-widest block mb-1">
           MILESTONE ACHIEVED
         </span>
-        <h2 className="text-2xl font-serif font-bold text-stone-900 leading-tight">
+        <h2 className="text-2xl font-serif font-bold text-slate-900 leading-tight">
           Day {lesson.dayNumber} Complete
         </h2>
-        <p className="text-xs text-stone-500 mt-1 font-mono">
+        <p className="text-xs text-slate-500 mt-1 font-mono">
           Current streak: {streakCount} Days • Keep the ritual alive
         </p>
       </div>
@@ -80,7 +80,7 @@ export const CelebrationView: React.FC<CelebrationViewProps> = ({
         <motion.div
           animate={{ rotate: [0, 3, -3, 0] }}
           transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
-          className="bg-white p-6 rounded-3xl border border-stone-200/60 shadow-xs relative flex flex-col items-center max-w-xs"
+          className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-xs relative flex flex-col items-center max-w-xs"
         >
           <Illustration type={lesson.illustrationType} size={140} />
           <div className="absolute top-2 right-2 text-amber-500">
@@ -91,7 +91,7 @@ export const CelebrationView: React.FC<CelebrationViewProps> = ({
 
       {/* Affirming Narrative Copy */}
       <div className="text-center max-w-sm mx-auto px-4 mb-6" id="celebration-affirmation">
-        <p className="text-stone-700 text-sm font-serif italic leading-relaxed">
+        <p className="text-slate-700 text-sm font-serif italic leading-relaxed">
           {getDayAffirmation(lesson.dayNumber)}
         </p>
       </div>
@@ -101,18 +101,18 @@ export const CelebrationView: React.FC<CelebrationViewProps> = ({
         {/* PDF Download Card */}
         <button
           onClick={handleDownloadPDF}
-          className="bg-white hover:bg-stone-50 border border-stone-200 hover:border-stone-300 rounded-2xl p-4 text-left transition-all flex items-start gap-4 active:scale-99 shadow-xs group cursor-pointer"
+          className="bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 rounded-2xl p-4 text-left transition-all flex items-start gap-4 active:scale-99 shadow-xs group cursor-pointer"
           id="pdf-download-card-btn"
         >
-          <div className="bg-[#FAF6F0] p-3 rounded-xl text-[#C85A32] group-hover:bg-[#C85A32]/10 transition-colors">
+          <div className="bg-[#EFF5FE] p-3 rounded-xl text-[#2563EB] group-hover:bg-[#2563EB]/10 transition-colors">
             <FileText size={20} />
           </div>
           <div className="flex-1">
-            <h4 className="text-sm font-semibold text-stone-800 flex items-center justify-between">
+            <h4 className="text-sm font-semibold text-slate-800 flex items-center justify-between">
               <span>Scribe Keepsake PDF</span>
-              <Download size={14} className="text-stone-400 group-hover:text-[#C85A32] transition-colors" />
+              <Download size={14} className="text-slate-400 group-hover:text-[#2563EB] transition-colors" />
             </h4>
-            <p className="text-xs text-stone-500 mt-1 leading-normal font-sans">
+            <p className="text-xs text-slate-500 mt-1 leading-normal font-sans">
               Download your custom lesson booklet containing the core story, key insight, and your personal written reflections.
             </p>
             {downloaded && (
@@ -126,18 +126,18 @@ export const CelebrationView: React.FC<CelebrationViewProps> = ({
         {/* Practice Game Card */}
         <button
           onClick={onStartPracticeGame}
-          className="bg-[#1C1917] hover:bg-stone-900 rounded-2xl p-4 text-left transition-all flex items-start gap-4 active:scale-99 shadow-md group cursor-pointer"
+          className="bg-[#0B1F3A] hover:bg-slate-900 rounded-2xl p-4 text-left transition-all flex items-start gap-4 active:scale-99 shadow-md group cursor-pointer"
           id="practice-game-card-btn"
         >
-          <div className="bg-[#C85A32] p-3 rounded-xl text-white group-hover:scale-105 transition-transform">
+          <div className="bg-[#2563EB] p-3 rounded-xl text-white group-hover:scale-105 transition-transform">
             <Video size={20} />
           </div>
           <div className="flex-1">
             <h4 className="text-sm font-semibold text-white flex items-center justify-between">
               <span>Play Daily Practice Game</span>
-              <Play size={14} className="text-[#C85A32] group-hover:translate-x-1 transition-transform" />
+              <Play size={14} className="text-[#2563EB] group-hover:translate-x-1 transition-transform" />
             </h4>
-            <p className="text-xs text-stone-300 mt-1 leading-normal font-sans">
+            <p className="text-xs text-slate-300 mt-1 leading-normal font-sans">
               Practice speaking your own reflection answers aloud under speed pressure to program confidence and spontaneity.
             </p>
           </div>
@@ -148,7 +148,7 @@ export const CelebrationView: React.FC<CelebrationViewProps> = ({
       <div className="text-center" id="celebration-footer">
         <button
           onClick={onReturnHome}
-          className="text-xs font-mono font-semibold text-stone-500 hover:text-stone-800 flex items-center justify-center gap-1.5 mx-auto py-2 px-4 hover:bg-stone-100/60 rounded-xl transition-all cursor-pointer"
+          className="text-xs font-mono font-semibold text-slate-500 hover:text-slate-800 flex items-center justify-center gap-1.5 mx-auto py-2 px-4 hover:bg-slate-100/60 rounded-xl transition-all cursor-pointer"
           id="return-dashboard-button"
         >
           <Home size={14} />
