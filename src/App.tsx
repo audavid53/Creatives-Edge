@@ -566,7 +566,7 @@ export default function App() {
                   user={user}
                   progress={progress}
                   todayLesson={activeLesson}
-                  todayCompleted={progress.completedDays.includes(activeDay)}
+                  todayCompleted={completedToday()}
                   stats={communityStats}
                   displayName={displayName}
                   onContinue={() => handleBeginLesson()}
