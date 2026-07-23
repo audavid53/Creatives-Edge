@@ -34,6 +34,11 @@ export interface UserProgress {
   completedDays: number[];
   streakCount: number;
   lastCompletedAt?: string; // ISO String
+  // Admission / commitment pledge (set once during admission)
+  pledgeCommitted?: boolean;
+  pledgeTime?: string; // Daily time the user pledges to show up, e.g. "08:00"
+  pledgeCommittedAt?: string; // ISO String
+  countedInCommunity?: boolean; // guard so a creative is counted once in the cohort
 }
 
 export interface UserLessonRecord {

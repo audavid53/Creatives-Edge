@@ -16,6 +16,13 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Community aggregate: shared cohort counters (no individual user data).
+    // Readable by anyone; any signed-in creative may apply increments.
+    match /community/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
     // Submissions: users can create/read their own, Admin can read/delete
     match /submissions/{submissionId} {
       allow create: if request.auth != null;
