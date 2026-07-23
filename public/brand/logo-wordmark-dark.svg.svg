@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="55.9874mm" height="12.0324mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 2022.49 434.66"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str1 {stroke:white;stroke-width:12.74;stroke-miterlimit:22.9256}
+    .str0 {stroke:white;stroke-width:2.75;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
+    .fil8 {fill:none}
+    .fil4 {fill:#CA8714}
+    .fil7 {fill:#CE8A14}
+    .fil5 {fill:#E49A0D}
+    .fil1 {fill:#F3A60C}
+    .fil6 {fill:#FBB62A}
+    .fil2 {fill:#FCBD2F}
+    .fil3 {fill:#FDC33B}
+    .fil0 {fill:white}
+    .fnt0 {font-weight:300;font-size:137.31px;font-family:'Calibri Light'}
+    .fnt1 {font-weight:bold;font-size:214.17px;font-family:'Calibri'}
+   ]]>
+  </style>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <text x="599.5" y="94.88"  class="fil0 str0 fnt0">the</text>
+  <text x="586.07" y="267.96"  class="fil0 str0 fnt1">CREATIVE</text>
+  <text x="586.07" y="430.93"  class="fil0 str0 fnt1">EDGE ACADEMY</text>
+  <path class="fil1" d="M183.16 293.33c0.68,-26.65 -0.18,-121.97 0.47,-136.65 -17.15,-10.93 -31.05,-20.34 -37.81,-24.54l-0.65 137.41 37.99 23.78z"/>
+  <path class="fil1" d="M239.44 336.76c2.79,0.32 29.16,17.74 35.15,21.69l3.96 -148.85c-19.11,-12.34 -17.95,-14.84 -36.96,-25.42 -1.04,54.44 -2.13,98.16 -2.15,152.59z"/>
+  <polygon class="fil2" points="242.18,184.76 298.1,146.14 281.8,137.15 372.15,122.77 353.76,179.78 333.16,169.47 278.55,209.6 "/>
+  <polygon class="fil2" points="145.14,132.13 205,89.58 185.57,77.94 280.93,70.14 267.79,127.19 246,113.2 183.64,156.68 "/>
+  <polygon class="fil2" points="55.35,75.24 112.33,35.56 96.51,26.09 191.14,13.25 174,72.5 153.34,60.12 95.52,100.85 "/>
+  <polygon class="fil3" points="2.3,299.18 95.2,237.53 57.08,213.85 -0,245.29 "/>
+  <polygon class="fil3" points="274.64,356.28 178.49,407.74 179.05,363.39 238.88,333.7 "/>
+  <polygon class="fil3" points="84.66,352.42 182.65,292.82 145.17,269.54 83.12,302.04 "/>
+  <polygon class="fil4" points="0.1,250.48 77.37,297.7 180.24,364.15 179.6,406.67 1.02,299.18 "/>
+  <polygon class="fil5" points="-0,245.29 38.83,274.13 1.02,299.18 "/>
+  <polygon class="fil6" points="84.05,302.15 124.04,328.46 86.13,352.97 "/>
+  <path class="fil1" d="M95.2 237.53c-0.46,-35.61 1.89,-118.66 2.15,-138.58 -9.85,-6.28 -23.67,-12.69 -41.32,-23.28 -0.7,33.22 1.29,125.85 1.05,138.18 16.4,10.36 14.83,8.6 38.12,23.68z"/>
+  <polygon class="fil7" points="87.5,352.08 124.04,328.46 180.24,364.15 179.57,408.4 "/>
+  <line class="fil8 str1" x1="475.39" y1="418.22" x2="475.39" y2= "3.92" />
+ </g>
+</svg>
