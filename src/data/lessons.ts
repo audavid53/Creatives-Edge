@@ -316,7 +316,7 @@ export const getLessonByDay = (day: number): Lesson => {
         id: `day${day}-1`,
         illustrationType: topic.illustrationType,
         title: `A New Creative Paradigm`,
-        text: `Welcome to Day ${day} of The Creative Edge. Today, we expand on our core philosophy: shifting our creative labor from an expense to an invaluable investment. We'll explore how to leverage your unique talent in a structured, repeatable way.`
+        text: `Welcome to Day ${day} of The Creative Academy. Today, we expand on our core philosophy: shifting our creative labor from an expense to an invaluable investment. We'll explore how to leverage your unique talent in a structured, repeatable way.`
       },
       {
         id: `day${day}-2`,

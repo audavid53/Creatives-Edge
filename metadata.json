@@ -1,5 +1,5 @@
 {
-  "name": "The Creative Edge",
+  "name": "The Creative Academy",
   "description": "A mobile-first 30-day devotional academy for creatives to discover unserved markets and decouple income from time.",
   "requestFramePermissions": ["camera", "microphone"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

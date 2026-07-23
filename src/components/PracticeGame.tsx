@@ -282,7 +282,7 @@ export const PracticeGame: React.FC<PracticeGameProps> = ({
           ctx.fillStyle = '#EFF5FE';
           ctx.font = '10px monospace';
           ctx.textAlign = 'center';
-          ctx.fillText("THE CREATIVE EDGE ACADEMY", 160, 40);
+          ctx.fillText("THE CREATIVE ACADEMY", 160, 40);
           ctx.fillText("DRILL TYPE: SPONTANEITY SPEAKING", 160, 60);
 
           ctx.fillStyle = '#FDA4AF';
