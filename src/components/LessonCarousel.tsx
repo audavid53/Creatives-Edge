@@ -117,7 +117,18 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
     }
   };
 
+  // Swipe to advance / go back
+  const handleDragEnd = (_e: any, info: { offset: { x: number }; velocity: { x: number } }) => {
+    const { offset, velocity } = info;
+    if (offset.x < -60 || velocity.x < -450) {
+      handleNext();
+    } else if (offset.x > 60 || velocity.x > 450) {
+      handleBack();
+    }
+  };
+
   const currentCard = cards[currentIndex];
+  const progressPct = Math.round(((currentIndex + 1) / cards.length) * 100);
 
   // Motion variants for smooth soft slide + fade
   const variants = {
@@ -170,13 +181,28 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
     );
   };
 
+  // Staggered reveal so each block eases in — helps the reader move through the card
+  const containerStagger = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
+  };
+  const itemReveal = {
+    hidden: { opacity: 0, y: 14 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' as const } },
+  };
+
   // Helper to render the card content based on format
   const renderCardContent = (card: typeof currentCard) => {
     const imageElement = renderImage(card);
     const textElement = (
-      <div className="bg-[#EFF5FE] border border-[#D6E4FA] rounded-3xl p-5 md:p-6 shadow-sm flex-1 text-left relative w-full">
+      <motion.div
+        variants={containerStagger}
+        initial="hidden"
+        animate="show"
+        className="bg-[#EFF5FE] border border-[#D6E4FA] rounded-3xl p-5 md:p-6 shadow-sm flex-1 text-left relative w-full"
+      >
         {card.showHeading && card.title && (
-          <div className="mb-2.5">
+          <motion.div variants={itemReveal} className="mb-2.5">
             {card.type === 'title' && (
               <span className="text-[9px] font-mono tracking-widest text-[#2563EB] uppercase font-bold block mb-1">
                 Day {lesson.dayNumber} Lesson Introduction
@@ -190,12 +216,12 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
             <h2 className="text-xl md:text-2xl font-serif font-bold text-slate-900 tracking-tight leading-snug">
               {card.title}
             </h2>
-          </div>
+          </motion.div>
         )}
-        <p className="text-slate-700 font-sans text-xs md:text-sm leading-relaxed">
+        <motion.p variants={itemReveal} className="text-slate-700 font-sans text-xs md:text-sm leading-relaxed">
           {renderFormattedText(card.text)}
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
     );
 
     const hasPic = card.showPicture && (card.customImageUrl || card.illustrationType);
@@ -253,6 +279,18 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
         </span>
       </div>
 
+      {/* Reading progress bar */}
+      <div className="mb-4" id="carousel-progress-bar">
+        <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+          <motion.div
+            className="h-full rounded-full bg-gradient-to-r from-[#2563EB] to-[#FACC15]"
+            initial={false}
+            animate={{ width: `${progressPct}%` }}
+            transition={{ type: 'spring', stiffness: 160, damping: 24 }}
+          />
+        </div>
+      </div>
+
       {/* Main Devotional Carousel Card with Dynamic Layout */}
       <div className="flex-1 flex flex-col justify-center min-h-[380px] my-4 overflow-hidden relative" id="carousel-card-container">
         <AnimatePresence initial={false} custom={direction} mode="wait">
@@ -263,7 +301,12 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
             initial="enter"
             animate="center"
             exit="exit"
-            className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center w-full min-h-[350px]"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.35}
+            onDragEnd={handleDragEnd}
+            whileTap={{ cursor: 'grabbing' }}
+            className="bg-white border border-slate-200/80 rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center w-full min-h-[350px] cursor-grab touch-pan-y select-none"
             id={`lesson-card-${currentIndex}`}
           >
             {renderCardContent(currentCard)}
@@ -273,6 +316,10 @@ export const LessonCarousel: React.FC<LessonCarouselProps> = ({
 
       {/* Bottom controls */}
       <div className="flex flex-col items-center gap-5" id="carousel-footer">
+        <p className="text-[10px] font-mono text-slate-400 tracking-wide flex items-center gap-1.5">
+          <ArrowLeft size={10} /> Swipe or tap to move through the lesson <ArrowRight size={10} />
+        </p>
+
         {/* Progress dots indicating position */}
         <div className="flex items-center gap-2" id="progress-dots">
           {cards.map((_, idx) => (

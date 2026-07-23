@@ -56,14 +56,16 @@ export const PracticeGame: React.FC<PracticeGameProps> = ({
     answer: answers[idx] || ""
   })).filter(pair => pair.answer.trim().length > 0);
 
-  // Determine current round duration
+  // Total progressive-speed rounds in the drill
+  const TOTAL_ROUNDS = 3;
+
+  // Determine current round duration — recording windows shrink: 1m → 30s → 15s
   const getRoundDuration = (r: number) => {
     switch (r) {
-      case 1: return 120; // 2 minutes
-      case 2: return 60;  // 1 minute
-      case 3: return 30;  // 30 seconds
-      case 4: return 10;  // 10 seconds
-      default: return 10;
+      case 1: return 60; // 1 minute
+      case 2: return 30; // 30 seconds
+      case 3: return 15; // 15 seconds
+      default: return 15;
     }
   };
 
@@ -189,10 +191,10 @@ export const PracticeGame: React.FC<PracticeGameProps> = ({
       // Start camera recording
       startRecording();
     } else if (gamePhase === 'record') {
-      // Transition from Record to Flash (next round) or Summary (if Round 4 done)
+      // Transition from Record to Flash (next round) or Summary (final round done)
       stopRecording();
 
-      if (round < 4) {
+      if (round < TOTAL_ROUNDS) {
         setRound(prev => prev + 1);
         setGamePhase('flash');
         setTimeLeft(10); // 10s Flash Refresher
@@ -307,12 +309,12 @@ export const PracticeGame: React.FC<PracticeGameProps> = ({
     try {
       let finalVideoBlob: Blob | null = null;
 
-      // Get active recorded clip (Round 4 is ideal or the last available)
-      const r4Clip = recordings.find(r => r.round === 4) || recordings[recordings.length - 1];
+      // Only the final (tightest, best) round is uploaded — the last round clip.
+      const finalClip = recordings.find(r => r.round === TOTAL_ROUNDS) || recordings[recordings.length - 1];
 
-      if (r4Clip && r4Clip.url) {
+      if (finalClip && finalClip.url) {
         // Real recording - fetch the blob back from its object URL
-        const res = await fetch(r4Clip.url);
+        const res = await fetch(finalClip.url);
         finalVideoBlob = await res.blob();
       } else {
         // Simulation mode - generate a fully playable WebM file
@@ -400,7 +402,7 @@ export const PracticeGame: React.FC<PracticeGameProps> = ({
           <div className="bg-[#EFF5FE] p-4 rounded-2xl border border-[#D6E4FA] text-[11px] text-slate-600 leading-normal flex items-start gap-2.5 mt-8">
             <Sparkles size={16} className="text-[#2563EB] shrink-0 mt-0.5" />
             <p className="font-sans">
-              <strong>Spontaneous Mind Engine:</strong> You will answer the same prompt 4 times. Preparation time is always 10 seconds. Recording times shrink: <strong>2m → 1m → 30s → 10s</strong>. No pausing. You are programming your subconscious to answer without hesitation.
+              <strong>Spontaneous Mind Engine:</strong> You will answer the same prompt 3 times. Preparation time is always 10 seconds. Recording times shrink: <strong>1m → 30s → 15s</strong>. No pausing. You are programming your subconscious to answer without hesitation.
             </p>
           </div>
         </div>
@@ -412,7 +414,7 @@ export const PracticeGame: React.FC<PracticeGameProps> = ({
           <div>
             <div className="mb-4">
               <span className="text-xs font-mono font-bold text-amber-600 uppercase tracking-wider bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">
-                Round {round} of 4 • Preparation
+                Round {round} of {TOTAL_ROUNDS} • Preparation
               </span>
             </div>
             
@@ -507,8 +509,7 @@ export const PracticeGame: React.FC<PracticeGameProps> = ({
             <p className="text-xs text-slate-600 font-serif italic max-w-xs mx-auto">
               {round === 1 && "Take your time. Explain the core details clearly."}
               {round === 2 && "Speed up. Remove filler words and cut straight to the point."}
-              {round === 3 && "Be tight. Express only the absolute essential conviction."}
-              {round === 4 && "Instant impact! Speak your core assertion in a single breath."}
+              {round === 3 && "Instant impact! Speak your core assertion in a single breath."}
             </p>
           </div>
 
@@ -548,7 +549,7 @@ export const PracticeGame: React.FC<PracticeGameProps> = ({
               {recordings.length === 0 ? (
                 <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6 text-center text-slate-500" id="empty-recordings">
                   <p className="text-xs font-serif italic">"Your speaking practice occurred in high-integrity simulation mode. Standard recordings were executed in the physical space of your room."</p>
-                  <p className="text-[10px] font-mono text-[#2563EB] mt-3">✓ 4 speaking rounds registered</p>
+                  <p className="text-[10px] font-mono text-[#2563EB] mt-3">✓ {TOTAL_ROUNDS} speaking rounds registered</p>
                 </div>
               ) : (
                 <div className="flex flex-col gap-3" id="recordings-playback-list">

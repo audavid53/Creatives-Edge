@@ -471,7 +471,7 @@ export default function App() {
         userPhone: userPhoneNumber || '',
         userName: user.displayName || user.email?.split('@')[0] || 'Creative Practitioner',
         dayNumber: activeDay,
-        round: 4,
+        round: 3,
         videoUrl,
         videoText,
         submittedAt: new Date().toISOString(),
