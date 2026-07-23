@@ -31,7 +31,7 @@ export function generateLessonPDF(
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9);
   doc.setTextColor(200, 90, 50); // Terracotta #C85A32
-  doc.text('THE CREATIVE EDGE ACADEMY', 45, y, { charSpace: 1.5 });
+  doc.text('THE CREATIVE ACADEMY', 45, y, { charSpace: 1.5 });
   
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);

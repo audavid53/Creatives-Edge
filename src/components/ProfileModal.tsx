@@ -138,7 +138,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
           <span className="text-[10px] font-mono tracking-widest text-[#2563EB] uppercase font-bold">REGISTRATION REQUIRED</span>
           <h2 className="text-2xl font-serif font-bold text-slate-900 mt-1">Complete Your Profile</h2>
           <p className="text-xs text-slate-500 mt-2 max-w-xs mx-auto">
-            Welcome to the Creative Edge. Please finalize your details before initiating your customized curriculum.
+            Welcome to The Creative Academy. Please finalize your details before initiating your customized curriculum.
           </p>
         </div>
 

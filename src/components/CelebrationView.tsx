@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Lesson, UserLessonRecord } from '../types';
 import { Illustration } from './Illustration';
 import { generateLessonPDF } from '../lib/pdfHelper';
+import { Confetti } from './Confetti';
 import { motion } from 'motion/react';
 import { Award, FileText, Video, ArrowRight, CheckCircle, Home, Sparkles, Download, Play } from 'lucide-react';
 
@@ -21,6 +22,13 @@ export const CelebrationView: React.FC<CelebrationViewProps> = ({
   onReturnHome
 }) => {
   const [downloaded, setDownloaded] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(true);
+
+  // Fire the celebration confetti once, then retire it.
+  useEffect(() => {
+    const t = setTimeout(() => setShowConfetti(false), 3600);
+    return () => clearTimeout(t);
+  }, []);
 
   // Custom warm affirmations for each day
   const getDayAffirmation = (day: number) => {
@@ -53,6 +61,7 @@ export const CelebrationView: React.FC<CelebrationViewProps> = ({
 
   return (
     <div className="flex flex-col min-h-full justify-between pb-8 px-5 py-6 bg-[#EFF5FE]" id="celebration-screen">
+      {showConfetti && <Confetti count={70} />}
       {/* Celebration Header */}
       <div className="text-center mt-6" id="celebration-header">
         <motion.div 

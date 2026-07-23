@@ -1023,7 +1023,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
       <div className="text-center mt-8 pt-4 border-t border-slate-200/50">
         <p className="text-[10px] font-mono text-slate-400">
-          The Creative Edge Boardroom Console • High Integrity Control Panel
+          The Creative Academy Boardroom Console • High Integrity Control Panel
         </p>
       </div>
     </div>

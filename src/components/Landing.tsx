@@ -77,7 +77,7 @@ export const Landing: React.FC<LandingProps> = ({
             Welcome back, {displayName.split(' ')[0]}.
           </h1>
           <p className="text-sm text-slate-500 mt-1.5 max-w-lg">
-            Decouple your income from your time — one focused lesson at a time.
+            Stop competing — discover the market only you can create, one focused lesson at a time.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -239,63 +239,30 @@ export const Landing: React.FC<LandingProps> = ({
             )}
           </div>
 
-          {/* Daily Speaking Drill */}
+          {/* Speaking drill pointer → Practice tab */}
           <div id="speaking-drill-container">
             <h3 className="text-[10px] font-mono tracking-[0.18em] text-[#2563EB] uppercase font-bold mb-3 flex items-center gap-1.5">
               <Mic size={12} /> Spontaneity Training
             </h3>
-
-            {!todayCompleted ? (
-              <div className="bg-slate-50 rounded-3xl p-6 border border-slate-200 shadow-sm relative overflow-hidden">
-                <div className="absolute top-3 right-3 bg-slate-200/60 text-slate-500 p-1.5 rounded-full" title="Locked">
-                  <Lock size={12} />
-                </div>
-                <div className="flex gap-4 items-start">
-                  <div className="bg-slate-200/60 p-3 rounded-2xl text-slate-400 shrink-0">
-                    <Mic size={22} />
-                  </div>
-                  <div className="flex-1">
-                    <span className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-wider block">Daily Speaking Drill</span>
-                    <h4 className="text-base font-serif font-bold text-slate-700 leading-tight mt-0.5">Spontaneous Pitching Challenge</h4>
-                    <p className="text-sm text-slate-500 mt-1.5 leading-relaxed">
-                      Turn insights into confident pitches. Complete today's lesson to unlock this drill.
-                    </p>
-                    <button
-                      onClick={onBeginLesson}
-                      className="mt-4 bg-white hover:bg-[#EFF5FE] text-slate-700 hover:text-[#2563EB] border border-slate-200 font-sans font-bold text-xs py-2.5 px-5 rounded-xl transition-all inline-flex items-center gap-1.5 cursor-pointer uppercase tracking-wider"
-                      id="unlock-drill-button"
-                    >
-                      <BookOpen size={12} /><span>Complete Lesson {currentDay} First</span>
-                    </button>
-                  </div>
-                </div>
+            <div className="bg-[#EFF5FE] rounded-3xl p-6 border border-[#D6E4FA] shadow-sm flex gap-4 items-start">
+              <div className="bg-white p-3 rounded-2xl text-[#2563EB] shrink-0 border border-[#D6E4FA] shadow-sm">
+                <Mic size={22} />
               </div>
-            ) : (
-              <div className="bg-[#EFF5FE] rounded-3xl p-6 border border-[#D6E4FA] shadow-sm relative overflow-hidden">
-                <div className="absolute top-3 right-3 bg-white text-[#2563EB] text-[8px] font-mono font-bold px-2 py-0.5 rounded border border-[#2563EB]/20 uppercase tracking-widest animate-pulse">
-                  Active
-                </div>
-                <div className="flex gap-4 items-start">
-                  <div className="bg-white p-3 rounded-2xl text-[#2563EB] shrink-0 border border-[#D6E4FA] shadow-sm">
-                    <Mic size={22} />
-                  </div>
-                  <div className="flex-1">
-                    <span className="text-[9px] font-mono font-bold text-[#2563EB] uppercase tracking-wider block">Daily Challenge • Day {todayLesson.dayNumber}</span>
-                    <h4 className="text-base font-serif font-bold text-[#0B1F3A] leading-tight mt-0.5">Spontaneity Speaking Drill</h4>
-                    <p className="text-sm text-slate-600 mt-1.5 leading-relaxed">
-                      Record your vocal answers for Day {todayLesson.dayNumber}'s inquiries under a fast-paced timer.
-                    </p>
-                    <button
-                      onClick={onPlayPracticeGameDirectly}
-                      className="mt-4 bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans font-bold text-xs py-3 px-6 rounded-xl transition-all shadow-lg shadow-[#2563EB]/25 active:scale-[0.98] inline-flex items-center gap-1.5 cursor-pointer uppercase tracking-wider"
-                      id="start-speaking-drill-button"
-                    >
-                      <Video size={13} /><span>Start Speaking Drill</span>
-                    </button>
-                  </div>
-                </div>
+              <div className="flex-1">
+                <span className="text-[9px] font-mono font-bold text-[#2563EB] uppercase tracking-wider block">Speaking Drills</span>
+                <h4 className="text-base font-serif font-bold text-[#0B1F3A] leading-tight mt-0.5">Turn reflections into confident pitches</h4>
+                <p className="text-sm text-slate-600 mt-1.5 leading-relaxed">
+                  Every completed lesson unlocks a speaking drill — 1m → 30s → 15s. Find them all in the Practice tab.
+                </p>
+                <button
+                  onClick={onPlayPracticeGameDirectly}
+                  className="mt-4 bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans font-bold text-xs py-3 px-6 rounded-xl transition-all shadow-lg shadow-[#2563EB]/25 active:scale-[0.98] inline-flex items-center gap-1.5 cursor-pointer uppercase tracking-wider"
+                  id="go-to-practice-button"
+                >
+                  <Video size={13} /><span>Open Practice</span>
+                </button>
               </div>
-            )}
+            </div>
           </div>
         </div>
 
@@ -380,7 +347,7 @@ export const Landing: React.FC<LandingProps> = ({
 
       <div className="text-center mt-10">
         <p className="text-[10px] font-mono text-slate-400 tracking-wide">
-          The Creative Edge • 30-Day Creative Business Journey
+          The Creative Academy • We don't compete — we create new markets
         </p>
       </div>
     </div>
